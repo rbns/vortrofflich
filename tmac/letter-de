@@ -1,0 +1,82 @@
+.do xflag 3
+.lc_ctype de_DE.utf8
+.\" As we are defining the german standard letter, A4 paper size
+.\" should be the only one we need
+.mediasize a4
+.papersize a4
+.\" Letters should be in sans serif
+.ft H
+.\" Start Sender, starts the full sender specification.
+.\" Also the place for additional information (e-mail, etc.).
+.de SS
+.nf
+.ad l
+.sp |3.2c
+.po |12.5c
+.ll	7.5c
+..
+.\" Reduced Sender, inserts the small sender information into
+.\" the receiver address box
+.\" $1: one string containing the sender address information e.g.:
+.\"     "Max Mustermann, Musterstraße 1, 12345 Musterstadt"
+.de RS
+.sp |3.2c
+.po |2.5c
+.ps 6
+.vs 8
+\\$1
+.vs 12
+.ps 10
+..
+.\" Start Receiver, starts the full receiver specification
+.de SR
+.nf
+.ad l
+.sp |4.47c
+.po |2.5c
+.ll 8c
+..
+.\" LeTter, switches into letter mode after the sender and receiver data
+.\" is finished.
+.\" $1: Subject
+.\" $2: Date
+.de LT
+.wh 0 NP
+.wh -2c FO
+.sp |249445u
+.po |2.5c
+.ll 467709u
+.if \\n(.$>0 \{\
+.mk
+.rj 1
+\\$2
+.rt
+\f(HB\\$1\fH 
+.sp \}
+.ad b
+.fi
+..
+.de 
+.\" Footer Macro
+.de FO
+.open pagecount /tmp/de-letter-pagecount
+.writec pagecount \\n%
+.close pagecount
+.sp 1v
+.tl ''%/\\n[total]''
+.\" print folding marks
+.wh -2c
+.po 0
+.sp |246614u 
+\l'0.5c-'
+.sp |420938u 
+\l'0.5c-'
+.sp |544243u 
+\l'0.5c-'
+.bp
+.wh -2c FO
+..
+.de NP
+.sp 2.7c
+.po 70865u
+..
